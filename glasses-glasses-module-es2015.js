@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-2\">\r\n    <a class=\"w-75 btn btn-block btn-outline-light btn-sm\" [routerLink]=\"['/glasses/' + curr]\">\r\n      <i class=\"fas fa-chevron-left\"></i> Regresar\r\n    </a>\r\n  </div>\r\n</div>\r\n<h5 class=\"text-center text-light\">Nuevo armazón</h5>\r\n<form [formGroup]=\"form\" (submit)=\"save()\" *ngIf=\"glass\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Marca</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"brand\" (change)=\"findModels()\">\r\n          <option selected disabled value=\"0\">Selecciona una marca</option>\r\n          <option *ngFor=\"let brand of brands\" [value]=\"brand._id\">{{ brand.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-brands/1']\">\r\n          ¿No encuentras la marca?\r\n        </a><br>\r\n        <span *ngIf=\"form.controls['brand'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          La marca es necesaria\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Modelo</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"model\">\r\n          <option selected disabled value=\"0\">Selecciona un modelo</option>\r\n          <option *ngFor=\"let model of models\" [value]=\"model._id\">{{ model.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-models/1']\">\r\n          ¿No encuentras el modelo?\r\n        </a><br>\r\n        <div *ngIf=\"form.controls['model'].value === 0 && sent\">\r\n          <span class=\"text-danger fs07\">Olvidaste el modelo</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Precio</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"price\"\r\n          placeholder=\"Precio del armazón\">\r\n        <span *ngIf=\"form.controls['price'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          ¿Lo darás sin precio?\r\n        </span>\r\n        <span *ngIf=\"form.controls['price'].errors?.pattern && sent\" class=\"text-danger fs07\">\r\n          No estoy seguro que esto sea un número\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color primario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"primaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona el color que más se ve</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n        <span *ngIf=\"form.controls['primaryColor'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          Por lo menos teste color\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color secundario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"secondaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona un color de complemento</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Cantidad</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"quantity\"\r\n          placeholder=\"Cantidad de piezas\">\r\n        <span *ngIf=\"form.controls['quantity'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          Es necesaria la cantidad de piezas\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row mt-5\">\r\n    <div class=\"col-sm-6 offset-sm-3\">\r\n      <button type=\"submit\" class=\"btn btn-outline-light btn-sm btn-block\">Guardar</button>\r\n    </div>\r\n  </div>\r\n</form>"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-2\">\r\n    <a class=\"w-75 btn btn-block btn-outline-light btn-sm\" [routerLink]=\"['/glasses/' + curr]\">\r\n      <i class=\"fas fa-chevron-left\"></i> Regresar\r\n    </a>\r\n  </div>\r\n</div>\r\n<form [formGroup]=\"form\" (submit)=\"save()\" *ngIf=\"glass\">\r\n  <h5 class=\"text-center text-light\">Editando el armazón {{ glass.brand.name }} - {{ glass.model }}</h5>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Marca</label>\r\n        <select #b class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"brand\"\r\n          (change)=\"setBrandName( b )\">\r\n          <option selected disabled value=\"0\">Selecciona una marca</option>\r\n          <option *ngFor=\"let brand of brands\" [value]=\"brand._id\">{{ brand.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-brands/1']\">\r\n          ¿No encuentras la marca?\r\n        </a><br>\r\n        <span *ngIf=\"form.controls['brand'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          La marca es necesaria\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Modelo</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"model\"\r\n          placeholder=\"Describe el modelo del armazón\">\r\n        <div *ngIf=\"form.controls['model'].errors?.required && sent\">\r\n          <span class=\"text-danger fs07\">Olvidaste el modelo</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Precio</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"price\"\r\n          placeholder=\"Precio del armazón\">\r\n        <span *ngIf=\"form.controls['price'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          ¿Lo darás sin precio?\r\n        </span>\r\n        <span *ngIf=\"form.controls['price'].errors?.pattern && sent\" class=\"text-danger fs07\">\r\n          No estoy seguro que esto sea un número\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color primario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"primaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona el color que más se ve</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n        <span *ngIf=\"form.controls['primaryColor'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          Por lo menos teste color\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color secundario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"secondaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona un color de complemento</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Cantidad</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"quantity\"\r\n          placeholder=\"Cantidad de piezas\">\r\n        <span *ngIf=\"form.controls['quantity'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          Es necesaria la cantidad de piezas\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row mt-3\">\r\n    <div class=\"col-10\">\r\n      <div id=\"accordion\">\r\n        <div class=\"card bg-dark\">\r\n          <div class=\"card-header\">\r\n            <a class=\"card-link text-center text-light\" data-toggle=\"collapse\" href=\"#collapseOne\">\r\n              Ver el historial de cambios\r\n            </a>\r\n          </div>\r\n          <div id=\"collapseOne\" class=\"collapse\" data-parent=\"#accordion\">\r\n            <div class=\"card-body\">\r\n              <ul *ngIf=\"glass.modification.length > 0\" class=\"list-group\">\r\n                <li class=\"list-group-item fs07 bg-dark text-light\" *ngFor=\"let mod of pagComments[ indexComments ]\">\r\n                  El\r\n                  <span class=\"text-primary\">{{ mod.date | date:'medium' }} - {{ mod.user.name }}\r\n                    {{ mod.user.last_name }}</span>\r\n                  modificó:\r\n                  <ul *ngFor=\"let up of mod.updated\" class=\"list-unstyled\">\r\n                    <li class=\"ml-2\">\r\n                      {{ up.field }} de <span class=\"font-weight-bolder fs08\">{{ up.from }}</span> por <span\r\n                        class=\"font-weight-bolder fs08\">{{ up.to }}</span>.\r\n                    </li>\r\n                  </ul>\r\n                </li>\r\n              </ul>\r\n              <div *ngIf=\"glass.modification.length > 0\">\r\n                <a class=\"pointer btn btn-sm btn-outline-light text-light my-2 mx-1\" (click)=\"lessComments()\">\r\n                  <i class=\"fas fa-chevron-left\"></i>\r\n                </a>\r\n                <a class=\"pointer btn btn-sm btn-outline-light text-light my-2 mx-1\" (click)=\"plusComments()\">\r\n                  <i class=\"fas fa-chevron-right\"></i>\r\n                </a>\r\n              </div>\r\n              <label *ngIf=\"glass.modification.length === 0\" class=\"text-center text-light\">Aún no hay\r\n                modificaciones</label>  \r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row mt-5\">\r\n    <div class=\"col-sm-6 offset-sm-3\">\r\n      <button type=\"submit\" class=\"btn btn-outline-light btn-sm btn-block\">Guardar</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = "<div class=\"row\">\r\n  <div class=\"col-2\">\r\n    <a class
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row my-3\">\r\n  <div class=\"col-sm-4\">\r\n    <div class=\"input-group mb-3\">\r\n      <input type=\"text\" class=\"form-control bg-dark text-light border-dark form-control-sm\"\r\n        placeholder=\"Busca armazon\">\r\n      <div class=\"input-group-append\">\r\n        <span class=\"input-group-text bg-dark text-light border-dark input-group-sm\"> <i class=\"fas fa-search\"></i>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-sm-2\">\r\n    <a class=\"btn btn-sm btn-outline-light btn-block\" [routerLink]=\"['/glass-brands/1']\">Nueva Marca</a>\r\n  </div>\r\n\r\n  <div class=\"col-sm-2\">\r\n    <a class=\"btn btn-sm btn-outline-light btn-block\" [routerLink]=\"['/glass-models/1']\">Nuevo modelo</a>\r\n  </div>\r\n\r\n  <div class=\"col-sm-2 offset-sm-2\">\r\n    <a class=\"btn btn-sm btn-outline-light btn-block\" [routerLink]=\"['/glasses/new/' + curr]\">Nuevo armazón</a>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-12\">\r\n    <table class=\"table table-sm table-hover table-dark table-striped text-center fs08\">\r\n      <thead class=\"fs10\">\r\n        <tr>\r\n          <th>Marca</th>\r\n          <th>Modelo</th>\r\n          <th>Precio</th>\r\n          <th>Cantidad</th>\r\n          <th>Color</th>\r\n          <th>Acciones</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n\r\n        <tr *ngFor=\"let glass of glasses\">\r\n          <td>{{ glass.brand.name }}</td>\r\n          <td>{{ glass.model.name }}</td>\r\n          <td>{{ glass.price | currency }}</td>\r\n          <td>{{ glass.left }} / {{ glass.quantity }}</td>\r\n          <td>{{ glass.primaryColor }}\r\n            <span *ngIf=\"glass.secondaryColor\">\r\n              - {{ glass.secondaryColor }}\r\n            </span>\r\n          </td>\r\n          <td>\r\n            <a class=\"btn btn-sm btn-outline-light mx-1\"\r\n              [routerLink]=\"['/glasses/edit/' + glass.normalizedToLink + '/' + curr ]\">\r\n              <i class=\"fas fa-edit\"></i>\r\n            </a>\r\n            <button *ngIf=\"glass.status === 'inactive'\" class=\"btn btn-sm btn-outline-light mx-1\"\r\n              (click)=\"swapStatus( glass )\">\r\n              <i class=\"fas fa-ban text-danger\"></i>\r\n            </button>\r\n            <button *ngIf=\"glass.status === 'active'\" class=\"btn btn-sm btn-outline-light mx-1\"\r\n              (click)=\"swapStatus( glass )\">\r\n              <i class=\"fas fa-check text-success\"></i>\r\n            </button>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"clearfix\">\r\n  <h2 class=\"float-right text-light\">Armazones</h2>\r\n</div>\r\n<div class=\"row my-3\">\r\n  <div class=\"col-sm-4\">\r\n    <div class=\"input-group mb-3\">\r\n      <input type=\"text\" class=\"form-control bg-dark text-light border-dark form-control-sm\"\r\n        placeholder=\"Busca armazon\">\r\n      <div class=\"input-group-append\">\r\n        <span class=\"input-group-text bg-dark text-light border-dark input-group-sm\"> <i class=\"fas fa-search\"></i>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-sm-2\">\r\n    <a class=\"btn btn-sm btn-outline-light btn-block\" [routerLink]=\"['/glass-brands/1']\">Nueva Marca</a>\r\n  </div>\r\n\r\n  <div class=\"col-sm-2 offset-sm-4\">\r\n    <a class=\"btn btn-sm btn-outline-light btn-block\" [routerLink]=\"['/glasses/new/' + curr]\">Nuevo armazón</a>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-12\">\r\n    <table class=\"table table-sm table-hover table-dark table-striped text-center fs08\">\r\n      <thead class=\"fs10\">\r\n        <tr>\r\n          <th>Marca</th>\r\n          <th>Modelo</th>\r\n          <th>Precio</th>\r\n          <th>Cantidad</th>\r\n          <th>Color</th>\r\n          <th>Acciones</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n\r\n        <tr *ngFor=\"let glass of glasses\">\r\n          <td>{{ glass.brand.name }}</td>\r\n          <td>{{ glass.model }}</td>\r\n          <td>{{ glass.price | currency }}</td>\r\n          <td>{{ glass.left }} / {{ glass.quantity }}</td>\r\n          <td>{{ glass.primaryColor }}\r\n            <span *ngIf=\"glass.secondaryColor\">\r\n              - {{ glass.secondaryColor }}\r\n            </span>\r\n          </td>\r\n          <td>\r\n            <a class=\"btn btn-sm btn-outline-light mx-1\"\r\n              [routerLink]=\"['/glasses/edit/' + glass.normalizedToLink + '/' + curr ]\">\r\n              <i class=\"fas fa-edit\"></i>\r\n            </a>\r\n            <button *ngIf=\"glass.status === 'inactive'\" class=\"btn btn-sm btn-outline-light mx-1\"\r\n              (click)=\"swapStatus( glass )\">\r\n              <i class=\"fas fa-ban text-danger\"></i>\r\n            </button>\r\n            <button *ngIf=\"glass.status === 'active'\" class=\"btn btn-sm btn-outline-light mx-1\"\r\n              (click)=\"swapStatus( glass )\">\r\n              <i class=\"fas fa-check text-success\"></i>\r\n            </button>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -29,7 +29,7 @@ module.exports = "<div class=\"row my-3\">\r\n  <div class=\"col-sm-4\">\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-2\">\r\n    <a class=\"w-75 btn btn-block btn-outline-light btn-sm\" [routerLink]=\"['/glasses/' + curr]\">\r\n      <i class=\"fas fa-chevron-left\"></i> Regresar\r\n    </a>\r\n  </div>\r\n</div>\r\n<h5 class=\"text-center text-light\">Nuevo armazón</h5>\r\n<form [formGroup]=\"form\" (submit)=\"save()\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Marca</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"brand\" (change)=\"findModels()\">\r\n          <option selected disabled value=\"0\">Selecciona una marca</option>\r\n          <option *ngFor=\"let brand of brands\" [value]=\"brand._id\">{{ brand.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-brands/1']\">\r\n            ¿No encuentras la marca?\r\n        </a><br>\r\n        <span *ngIf=\"form.controls['brand'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          La marca es necesaria\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Modelo</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"model\">\r\n          <option selected disabled value=\"0\">Selecciona un modelo</option>\r\n          <option *ngFor=\"let model of models\" [value]=\"model._id\">{{ model.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-models/1']\">\r\n            ¿No encuentras el modelo?\r\n        </a><br>\r\n        <div *ngIf=\"form.controls['model'].value === 0 && sent\">\r\n          <span class=\"text-danger fs07\">Olvidaste el modelo</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Precio</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"price\"\r\n          placeholder=\"Precio del armazón\">\r\n        <span *ngIf=\"form.controls['price'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          ¿Lo darás sin precio?\r\n        </span>\r\n        <span *ngIf=\"form.controls['price'].errors?.pattern && sent\" class=\"text-danger fs07\">\r\n          No estoy seguro que esto sea un número\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color primario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"primaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona el color que más se ve</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n        <span *ngIf=\"form.controls['primaryColor'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          Por lo menos teste color\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color secundario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"secondaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona un color de complemento</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Cantidad</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"quantity\"\r\n          placeholder=\"Cantidad de piezas\">\r\n        <span *ngIf=\"form.controls['quantity'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          Es necesaria la cantidad de piezas\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row mt-5\">\r\n    <div class=\"col-sm-6 offset-sm-3\">\r\n      <button type=\"submit\" class=\"btn btn-outline-light btn-sm btn-block\">Guardar</button>\r\n    </div>\r\n  </div>\r\n</form>"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-2\">\r\n    <a class=\"w-75 btn btn-block btn-outline-light btn-sm\" [routerLink]=\"['/glasses/' + curr]\">\r\n      <i class=\"fas fa-chevron-left\"></i> Regresar\r\n    </a>\r\n  </div>\r\n</div>\r\n<h5 class=\"text-center text-light\">Nuevo armazón</h5>\r\n<form [formGroup]=\"form\" (submit)=\"save()\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Marca</label>\r\n        <select #b class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"brand\" (change)=\"setBrandName( b )\"> \r\n          <option selected disabled value=\"0\">Selecciona una marca</option>\r\n          <option *ngFor=\"let brand of brands\" [value]=\"brand._id\">{{ brand.name }}</option>\r\n        </select>\r\n        <a class=\"fs06 text-light text-decoration-none\" [routerLink]=\"[ '/glass-brands/1']\">\r\n            ¿No encuentras la marca?\r\n        </a><br>\r\n        <span *ngIf=\"form.controls['brand'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          La marca es necesaria\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Modelo</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"model\"\r\n          placeholder=\"Describe el modelo del armazón\">\r\n        <div *ngIf=\"form.controls['model'].errors?.required && sent\">\r\n          <span class=\"text-danger fs07\">Olvidaste el modelo</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Precio</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"price\"\r\n          placeholder=\"Precio del armazón\">\r\n        <span *ngIf=\"form.controls['price'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          ¿Lo darás sin precio?\r\n        </span>\r\n        <span *ngIf=\"form.controls['price'].errors?.pattern && sent\" class=\"text-danger fs07\">\r\n          No estoy seguro que esto sea un número\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color primario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"primaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona el color que más se ve</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n        <span *ngIf=\"form.controls['primaryColor'].value === 0 && sent\" class=\"text-danger fs07\">\r\n          Por lo menos teste color\r\n        </span>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Color secundario</label>\r\n        <select class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"secondaryColor\">\r\n          <option selected disabled value=\"0\">Selecciona un color de complemento</option>\r\n          <option *ngFor=\"let color of colors\" [value]=\"color.toLowerCase()\">{{ color }}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm-4\">\r\n      <div class=\"form-group\">\r\n        <label class=\"text-muted\">Cantidad</label>\r\n        <input type=\"text\" class=\"form-control form-control-sm bg-dark text-light\" formControlName=\"quantity\"\r\n          placeholder=\"Cantidad de piezas\">\r\n        <span *ngIf=\"form.controls['quantity'].errors?.required && sent\" class=\"text-danger fs07\">\r\n          Es necesaria la cantidad de piezas\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row mt-5\">\r\n    <div class=\"col-sm-6 offset-sm-3\">\r\n      <button type=\"submit\" class=\"btn btn-outline-light btn-sm btn-block\">Guardar</button>\r\n    </div>\r\n  </div>\r\n</form>"
 
 /***/ }),
 
@@ -57,9 +57,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_brands_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../services/brands.service */ "./src/app/services/brands.service.ts");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
-/* harmony import */ var _services_models_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services/models.service */ "./src/app/services/models.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _services_brands_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services/brands.service */ "./src/app/services/brands.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
 /* harmony import */ var _services_glasses_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../services/glasses.service */ "./src/app/services/glasses.service.ts");
 
 
@@ -69,11 +69,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EditComponent = class EditComponent {
-    constructor(route, router, brandService, modelService, tostador, glassesService) {
+    constructor(route, router, brandService, tostador, glassesService) {
         this.route = route;
         this.router = router;
         this.brandService = brandService;
-        this.modelService = modelService;
         this.tostador = tostador;
         this.glassesService = glassesService;
         this.sent = false;
@@ -86,22 +85,61 @@ let EditComponent = class EditComponent {
             'Cafe', 'Rosa', 'Plata',
             'Transparente', 'Metalico', 'Dorado'
         ];
+        this.pagComments = [];
     }
     ngOnInit() {
         this.colors = this.colors.sort();
         this.curr = Number(this.route.snapshot.params.page) || 1;
         const name = this.route.snapshot.params.name;
+        this.indexComments = 0;
         if (name) {
             this.glassesService.fetch(0, 1, name)
-                .subscribe((res) => this.glass = res.data[0], (err) => this.tostador.error(err.message, '¡Error!')).add(() => { });
+                .subscribe((res) => {
+                this.glass = res.data[0];
+                this.glass.modification = this.glass.modification.reverse();
+                let x = 0;
+                for (let i = 0; i < this.glass.modification.length; i += 3) {
+                    this.pagComments[x] = this.glass.modification.slice(i, (3 + i));
+                    x++;
+                }
+                this.createForm();
+            }, (err) => this.tostador.error(err.message, '¡Error!')).add(() => { this.fetchBrands(); });
         }
+    }
+    fetchBrands() {
+        this.brandService.fetch(0, 1000, 1)
+            .subscribe((res) => this.brands = res.data, (err) => this.tostador.error(err.message, '¡Error!')).add(() => { });
+    }
+    createForm() {
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
+            brand: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.brand._id, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
+            model: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.model, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
+            price: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.price, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern('[0-9]+')]),
+            primaryColor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.primaryColor, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
+            secondaryColor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.secondaryColor),
+            quantity: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](this.glass.quantity, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern('[0-9]+')]),
+        });
+        this.brandName = this.glass.brand.name;
     }
     save() {
         this.sent = true;
         if (this.form.status === 'VALID' && !this.checkErrors()) {
-            this.glassesService.save(this.form.value)
+            const data = this.form.value;
+            data.brand_name = this.brandName;
+            this.glassesService.edit(data, this.glass._id)
                 .subscribe(() => this.router.navigateByUrl('/glasses/' + this.curr), (err) => this.tostador.error(err.message, '¡Error!')).add(() => { });
         }
+    }
+    setBrandName(selector) {
+        this.brandName = selector.options[selector.selectedIndex].text;
+    }
+    plusComments() {
+        this.indexComments = (this.indexComments + 1) > (this.pagComments.length - 1)
+            ? (this.pagComments.length - 1)
+            : this.indexComments + 1;
+    }
+    lessComments() {
+        this.indexComments = (this.indexComments - 1) < 0 ? 0 : this.indexComments - 1;
     }
     checkErrors() {
         if (this.form.controls.brand.value === 0 ||
@@ -117,9 +155,8 @@ let EditComponent = class EditComponent {
 EditComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: _services_brands_service__WEBPACK_IMPORTED_MODULE_3__["BrandsService"] },
-    { type: _services_models_service__WEBPACK_IMPORTED_MODULE_5__["ModelsService"] },
-    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] },
+    { type: _services_brands_service__WEBPACK_IMPORTED_MODULE_4__["BrandsService"] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"] },
     { type: _services_glasses_service__WEBPACK_IMPORTED_MODULE_6__["GlassesService"] }
 ];
 EditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -368,7 +405,7 @@ let NewComponent = class NewComponent {
         this.curr = Number(this.route.snapshot.params.page) || 1;
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             brand: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](0, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
-            model: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](0, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
+            model: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
             price: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern('[0-9]+')]),
             primaryColor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](0, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]),
             secondaryColor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](0),
@@ -380,9 +417,14 @@ let NewComponent = class NewComponent {
     save() {
         this.sent = true;
         if (this.form.status === 'VALID' && !this.checkErrors()) {
-            this.glassesService.save(this.form.value)
+            const data = this.form.value;
+            data.brand_name = this.brandName;
+            this.glassesService.save(data)
                 .subscribe(() => this.router.navigateByUrl('/glasses/' + this.curr), (err) => this.tostador.error(err.message, '¡Error!')).add(() => { });
         }
+    }
+    setBrandName(selector) {
+        this.brandName = selector.options[selector.selectedIndex].text;
     }
     checkErrors() {
         if (this.form.controls.brand.value === 0 ||
@@ -392,13 +434,6 @@ let NewComponent = class NewComponent {
         }
         else {
             return false;
-        }
-    }
-    findModels() {
-        const brand = this.form.controls.brand.value;
-        if (brand) {
-            this.modelService.findByBrand(brand)
-                .subscribe((res) => this.models = res.data, (err) => this.tostador.error(err.message, '¡Error!')).add(() => { });
         }
     }
 };
@@ -451,6 +486,10 @@ let GlassesService = class GlassesService {
     save(data) {
         data.token = this.cUser.getIndex('token');
         return this.cHttp.post(`${_variables_services_config__WEBPACK_IMPORTED_MODULE_3__["link"]}/${this.route}`, data);
+    }
+    edit(data, id) {
+        data.token = this.cUser.getIndex('token');
+        return this.cHttp.put(`${_variables_services_config__WEBPACK_IMPORTED_MODULE_3__["link"]}/${this.route}/${id}`, data);
     }
     fetch(skip, limit, value) {
         value = value ? value : '';

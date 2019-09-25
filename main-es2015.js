@@ -405,6 +405,7 @@ LoginService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "link", function() { return link; });
+// export const link = 'http://localhost:9000';
 const link = 'http://18.221.70.54:9000';
 
 

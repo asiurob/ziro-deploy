@@ -417,6 +417,7 @@ var LoginService = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "link", function() { return link; });
+// export const link = 'http://localhost:9000';
 var link = 'http://18.221.70.54:9000';
 
 
